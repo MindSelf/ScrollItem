@@ -1,0 +1,13 @@
+# ScrollItem
+ScrollItem是仿照IOS滑动时显示删除按钮而封装的一个ItemView
+
+ScrollItem默认包含有一个删除按钮，可以通过setDeleteListener设置删除回调。ScrollItem支持在XML文件或Java代码中传入一个顶层布局，ScrollItem实现了该顶层
+布局的对滑动的响应规则，与外部AbsListView的滑动冲突，并自动响应删除按钮的删除事件。
+> 滑动规则：ScrollItem只能进行左滑，当左滑距离小于删除按钮宽度时会取消这次滑动，否则自动滑动到删除按钮左侧
+
+> 处理滑动冲突的规则：纵向滑动时外部控件才允许拦截事件，ScrollItem在滑动时不允许拦截滑动事件
+
+> 对点击事件的处理：滑动距离小于10px时认为是点击事件，会交给顶层子布局处理，在删除按钮范围内滑动会认为是点击事件，交给删除按钮去处理
+
+在使用ScrollItem时，需要额外处理ListView/RecyclerView对ScrollItem的复用导致的问题，以及不同ScrollItem之间的交互（比如滑动一个Item，前面的Item会关闭），
+ScrollItem提供了setOnScrollListener和resetViewSmoothly方法来处理以上问题。
